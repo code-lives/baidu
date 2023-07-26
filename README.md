@@ -12,7 +12,7 @@
 ## 安装
 
 ```php
-composer require code-lives/baidu
+composer require code-lives/baidu 1.0.0
 ```
 
 ### ⚠️ 注意
@@ -80,7 +80,7 @@ $data= Baidu::init($config)->decryptPhone($session_key, $iv, $ciphertext);
 echo $phone['mobile'];
 ```
 
-### 百度订单查询
+### 订单查询
 
 | 参数名字     | 类型   | 必须 | 说明                 |
 | ------------ | ------ | ---- | -------------------- |
@@ -96,7 +96,7 @@ $order = [
 $data = $Baidu->findOrder($order);
 ```
 
-### 百度退款
+### 退款
 
 | 参数名字         | 类型   | 必须 | 说明                                                                                               |
 | ---------------- | ------ | ---- | -------------------------------------------------------------------------------------------------- |
@@ -123,7 +123,7 @@ $order = [
 $data= Baidu::init($config)->applyOrderRefund($order);
 ```
 
-### 百度小程序模版消息
+### 模版消息
 
 ```php
 $data = [
@@ -145,4 +145,18 @@ $data=[
     "msg_key" => 1663314134696897
   ]
 ]
+```
+
+## 支付回调
+
+```php
+$pay = Baidu::init($config);
+$status = $pay->notifyCheck();//验证
+if($status){
+    $order = $pay->getNotifyOrder();
+    //$order['tpOrderId']
+    //$order['orderId']
+    //$order['userId']
+    echo 'success';exit;
+}
 ```
